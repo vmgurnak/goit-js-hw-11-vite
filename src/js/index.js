@@ -9,6 +9,12 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+const lightbox = new SimpleLightbox('.gallery-list a', {
+  /* options */
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+
 // Elements ojects
 const elements = {
   form: document.querySelector('.js-sumbit'),
@@ -32,17 +38,10 @@ function handlerSubmitForm(evt) {
   const date = {
     search: searchQuery.value,
   };
-  console.log(date);
-  console.log(date.search);
 
   fetchSearch(date.search)
     .then(data => {
-      console.log(data);
-      console.log(data.hits);
-      console.log(data.hits.length);
-
       Notiflix.Loading.remove();
-
       loaderHidden();
 
       if (data.hits.length === 0) {
@@ -55,21 +54,15 @@ function handlerSubmitForm(evt) {
         });
       }
       elements.gallery.innerHTML = createMarkup(data.hits);
-      const lightbox = new SimpleLightbox('.gallery-list a', {
-        /* options */
-        captionsData: 'alt',
-        captionDelay: 250,
-      });
       lightbox.refresh();
     })
-    .catch(error => {
+    .catch(() => {
       iziToast.error({
         //  title: 'Error',
         message: 'Oops! Something went wrong! Try reloading the page!',
         position: 'topRight',
         maxWidth: 300,
       });
-      console.log(error);
     })
     .finally(() => {
       evt.target.reset();

@@ -17,7 +17,6 @@ function fetchSearch(word) {
 
   return fetch(`${BASE_URL}?${params}`)
     .then(resp => {
-      console.log(resp);
       if (!resp.ok) {
         throw new Error(resp.statusText);
       }
