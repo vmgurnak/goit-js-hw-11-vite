@@ -31,8 +31,8 @@ function handlerSubmitForm(evt) {
   evt.preventDefault();
   loaderSow();
 
-  // Notiflix.Loading
-  Notiflix.Loading.standard('Loading data, please wait....');
+  // // Notiflix.Loading
+  // Notiflix.Loading.standard('Loading data, please wait....');
 
   const { searchQuery } = evt.currentTarget.elements;
   const date = {
@@ -41,7 +41,7 @@ function handlerSubmitForm(evt) {
 
   fetchSearch(date.search)
     .then(data => {
-      Notiflix.Loading.remove();
+      // Notiflix.Loading.remove();
       loaderHidden();
 
       if (data.hits.length === 0) {
